@@ -1775,9 +1775,8 @@ else
     end)
 end
 
-
 Tabs.TpT:AddButton({
-    Title = "TP To Final Destination",
+    Title = "TP + Ngồi chắc chắn vào súng máy",
     Callback = function()
         local Player = game.Players.LocalPlayer
         if not Player.Character then Player.CharacterAdded:Wait() end
@@ -1820,9 +1819,9 @@ Tabs.TpT:AddButton({
         HRP.CFrame = CFrame.new(finalPos)
         HRP.Anchored = false
         HUM.WalkSpeed = 0
-        task.wait(2.5) -- Khoảng này để server trigger sự kiện load hoàn chỉnh
+        task.wait(2.5)
 
-        -- Tìm và ngồi vào ghế gần nhất
+        -- Tìm và ngồi vào ghế gần nhất (quay mặt ra sau)
         local function autoSeat()
             local closestSeat, closestDist = nil, 20
             for _, v in pairs(workspace:GetDescendants()) do
@@ -1835,7 +1834,8 @@ Tabs.TpT:AddButton({
                 end
             end
             if closestSeat then
-                HRP.CFrame = CFrame.new(closestSeat.Position + Vector3.new(0, 2, 0))
+                -- Quay mặt về phía sau (180 độ)
+                HRP.CFrame = CFrame.new(closestSeat.Position + Vector3.new(0, 2, 0)) * CFrame.Angles(0, math.rad(180), 0)
                 task.wait(0.3)
                 closestSeat:Sit(HUM)
             end
